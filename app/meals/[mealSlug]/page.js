@@ -1,9 +1,18 @@
 import classes from "./page.module.css";
 import Image from "next/image";
 import { getMeal } from "@/lib/meals";
+import { notFound } from "next/navigation";
 
 const MealDetailsPage = ({ params }) => {
   const meal = getMeal(params.mealSlug);
+
+  if (!meal) {
+    notFound();
+    // Calling this function will stop this component from executing 
+    // and will show the closest not-found or error page.
+    // Without a not-found inside the meals folder, it will show the one in the app root folder,
+    // since we have one generic there.
+  }
 
   meal.instructions = meal.instructions.replace(/\n/g, "<br />");
 
