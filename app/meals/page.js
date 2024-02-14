@@ -11,6 +11,7 @@ import { Suspense } from "react";
 // loading states and show fallback content until some data or resource has been loaded.
 
 const Meals = async () => {
+  console.log('Fetching meals')
   const meals = await getMeals();
   return <MealsGrid meals={meals} />;
 };

@@ -12,7 +12,11 @@ const MealItem = ({ title, slug, image, summary, creator }) => {
         fill below tells NextJS that it should fill the available space with the image,
         as defined by its parent components
         */}
-          <Image src={image} alt={title} fill />
+          <Image
+            src={`https://robquadraccia-nextjs-foodies-users-image.s3.amazonaws.com/${image}`}
+            alt={title}
+            fill
+          />
         </div>
         <div className={classes.headerText}>
           <h2>{title}</h2>
