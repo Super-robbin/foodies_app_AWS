@@ -78,7 +78,7 @@ const MealDetailsPage = ({ params }) => {
 export async function getStaticPaths() {
   const db = sql("meals.db");
 
-  const results = db.prepare('SELECT slug FROM your_table').all();
+  const results = db.prepare('SELECT slug FROM meals').all();
 
   db.close();
 
