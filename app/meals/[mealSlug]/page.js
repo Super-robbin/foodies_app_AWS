@@ -2,6 +2,7 @@ import classes from "./page.module.css";
 import Image from "next/image";
 import { getMeal } from "@/lib/meals";
 import { notFound } from "next/navigation";
+import sql from "better-sqlite3";
 
 // Make sure to use this name because NextJS will look for this function.
 // If it doesn't find any other metadata, it's checking whether there is such a function.
@@ -33,6 +34,7 @@ const MealDetailsPage = ({ params }) => {
   }
 
   meal.instructions = meal.instructions.replace(/\n/g, "<br />");
+  
 
   return (
     <>
@@ -73,5 +75,23 @@ const MealDetailsPage = ({ params }) => {
     </>
   );
 };
+
+export async function getStaticPaths() {
+  // Open SQLite database
+  const db = sql("meals.db");
+
+  // Fetch data from SQLite
+  const results = db.prepare('SELECT slug FROM your_table').all();
+
+  // Close the database connection
+  db.close();
+
+  // Generate paths based on fetched data
+  const paths = results.map(result => ({
+    params: { slug: result.slug }
+  }));
+
+  return { paths, fallback: 'blocking' };
+}
 
 export default MealDetailsPage;
